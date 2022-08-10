@@ -27,6 +27,13 @@ public class CybersourcePaymentController {
         return ResponseEntity.ok(jwt);
     }
 
+    //todo expecting a token in the request body from the UI
+    @PostMapping("/transient")
+    public ResponseEntity<?> postMethod(@RequestBody  Map<String, Object> obj) {
+
+        return ResponseEntity.ok("");
+    }
+
     @PostMapping("/sign")
     public ResponseEntity<?> sign(@RequestBody Map<String, Object> params) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
         Object amountObj = params.get("amount");

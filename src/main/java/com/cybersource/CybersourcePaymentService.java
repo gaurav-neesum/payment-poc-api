@@ -73,8 +73,8 @@ public class CybersourcePaymentService {
         checkoutApiInitialization.setBillToAddressCountry("UK");
         checkoutApiInitialization.setOverrideBackofficePostUrl("https://webhook.site/aef5e955-9a59-44b3-a186-f9a42d23181a");
 //        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8082/testing0804/1.php%20-%20WP%20Iframe%20PA&Token&Override%20URL/web/receipt.php");
-        checkoutApiInitialization.setIgnoreAvs("true");
-        checkoutApiInitialization.setIgnoreCvn("true");
+        checkoutApiInitialization.setIgnoreAvs("false");
+        checkoutApiInitialization.setIgnoreCvn("false");
 //        checkoutApiInitialization.setPartnerSolutionId("");
         checkoutApiInitialization.setUnsignedFieldNames("transient_token");
 
