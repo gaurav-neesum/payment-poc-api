@@ -13,7 +13,7 @@ public class CheckoutApiInitialization {
     public String transactionUUID;
     @JsonProperty("transaction_type")
     public String transactionType;
-    @JsonProperty("payment_method:")
+    @JsonProperty("payment_method")
     public String paymentMethod;
     @JsonProperty("currency")
     public String currency;
@@ -21,6 +21,8 @@ public class CheckoutApiInitialization {
     public String amount;
     @JsonProperty("locale")
     public String locale;
+    @JsonProperty("signed_date_time")
+    public String signedDateTime;
     @JsonProperty("bill_to_forename")
     public String billToForename;
     @JsonProperty("bill_to_surname")
@@ -49,6 +51,8 @@ public class CheckoutApiInitialization {
     public String ignoreCvn;
     @JsonProperty("partner_solution_id")
     public String partnerSolutionId;
+    @JsonProperty("signed_field_names")
+    public String signedFieldNames;
     @JsonProperty("unsigned_field_names")
     public String unsignedFieldNames;
 
@@ -130,6 +134,15 @@ public class CheckoutApiInitialization {
 
     public CheckoutApiInitialization setLocale(String locale) {
         this.locale = locale;
+        return this;
+    }
+
+    public String getSignedDateTime() {
+        return signedDateTime;
+    }
+
+    public CheckoutApiInitialization setSignedDateTime(String signedDateTime) {
+        this.signedDateTime = signedDateTime;
         return this;
     }
 
@@ -256,6 +269,15 @@ public class CheckoutApiInitialization {
 
     public CheckoutApiInitialization setPartnerSolutionId(String partnerSolutionId) {
         this.partnerSolutionId = partnerSolutionId;
+        return this;
+    }
+
+    public String getSignedFieldNames() {
+        return signedFieldNames;
+    }
+
+    public CheckoutApiInitialization setSignedFieldNames(String signedFieldNames) {
+        this.signedFieldNames = signedFieldNames;
         return this;
     }
 

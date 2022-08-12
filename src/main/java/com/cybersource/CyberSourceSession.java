@@ -18,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -39,6 +40,10 @@ public class CyberSourceSession {
         merchantConfig.setRequestType("POST");
         merchantConfig.setRequestHost("apitest.cybersource.com");
 
+        Arrays.asList("profile_id","access_key", "reference_number", "transaction_uuid", "transaction_type", "payment_method",
+                "currency", "amount", "locale", "signed_date_time", "bill_to_forename", "bill_to_surname", "bill_to_phone", "bill_to_email",
+                "bill_to_address_line1", "bill_to_address_city", "bill_to_address_state", "bill_to_address_postal_code", "bill_to_address_country",
+                "override_backoffice_post_url", "override_custom_receipt_page", "ignore_avs", "ignore_cvn", "partner_solution_id", "signed_field_names", "unsigned_field_names");
 
         SessionRequest sessionRequest = new SessionRequest();
         ArrayList<String> targetOrigins = new ArrayList<>();
@@ -53,11 +58,12 @@ public class CyberSourceSession {
 
         checkoutApiInitialization.setReferenceNumber("989c8442-4de0-421e-936e-4aae1c2e7f93");
         checkoutApiInitialization.setTransactionUUID("da068362-3823-4b89-a3e7-118d6872611d");
-        checkoutApiInitialization.setTransactionType("authorization, create_payment_token");
+        checkoutApiInitialization.setTransactionType("authorization,create_payment_token");
         checkoutApiInitialization.setPaymentMethod("card");
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount("24.0");
         checkoutApiInitialization.setLocale("en");
+        checkoutApiInitialization.setSignedDateTime(LocalDateTime.now().atZone(ZoneId.of("Z")).toString());
         checkoutApiInitialization.setBillToForename("Gaurav");
         checkoutApiInitialization.setBillToSurname("Shah");
         checkoutApiInitialization.setBillToPhone("07899899987");
