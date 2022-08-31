@@ -61,7 +61,7 @@ public class CyberSourceSession {
         checkoutApiInitialization.setReferenceNumber(UUID.randomUUID().toString());
         checkoutApiInitialization.setTransactionUUID(UUID.randomUUID().toString());
         checkoutApiInitialization.setTransactionType("authorization,create_payment_token");
-        checkoutApiInitialization.setPaymentMethod("card");
+//        checkoutApiInitialization.setPaymentMethod("card");
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount("24.0");
         checkoutApiInitialization.setLocale("en");
@@ -72,7 +72,7 @@ public class CyberSourceSession {
         checkoutApiInitialization.setBillToEmail("g09.shah@gmail.com");
         checkoutApiInitialization.setBillToAddressLine1("1 My Apartment");
         checkoutApiInitialization.setBillToAddressCity("Nuneaton");
-        checkoutApiInitialization.setBillToAddressState("CA");
+//        checkoutApiInitialization.setBillToAddressState("CA");
         checkoutApiInitialization.setBillToAddressPostalCode("CV10 0IS");
         checkoutApiInitialization.setBillToAddressCountry("UK");
         checkoutApiInitialization.setOverrideBackofficePostUrl("https://localhost:8080/check-payment");

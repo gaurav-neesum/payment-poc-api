@@ -2,6 +2,10 @@ package com.cybersource;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 public class CheckoutApiInitialization {
     @JsonProperty("profile_id")
     public String profileId;
@@ -13,8 +17,8 @@ public class CheckoutApiInitialization {
     public String transactionUUID;
     @JsonProperty("transaction_type")
     public String transactionType;
-    @JsonProperty("payment_method")
-    public String paymentMethod;
+//    @JsonProperty("payment_method")
+//    public String paymentMethod;
     @JsonProperty("currency")
     public String currency;
     @JsonProperty("amount")
@@ -35,8 +39,8 @@ public class CheckoutApiInitialization {
     public String billToAddressLine1;
     @JsonProperty("bill_to_address_city")
     public String billToAddressCity;
-    @JsonProperty("bill_to_address_state")
-    public String billToAddressState;
+//    @JsonProperty("bill_to_address_state")
+//    public String billToAddressState;
     @JsonProperty("bill_to_address_postal_code")
     public String billToAddressPostalCode;
     @JsonProperty("bill_to_address_country")
@@ -49,10 +53,10 @@ public class CheckoutApiInitialization {
     public String ignoreAvs;
     @JsonProperty("ignore_cvn")
     public String ignoreCvn;
-    @JsonProperty("partner_solution_id")
-    public String partnerSolutionId;
-    @JsonProperty("signed_field_names")
-    public String signedFieldNames;
+//    @JsonProperty("partner_solution_id")
+//    public String partnerSolutionId;
+//    @JsonProperty("signed_field_names")
+//    public String signedFieldNames;
     @JsonProperty("unsigned_field_names")
     public String unsignedFieldNames;
 
@@ -101,14 +105,7 @@ public class CheckoutApiInitialization {
         return this;
     }
 
-    public String getPaymentMethod() {
-        return paymentMethod;
-    }
 
-    public CheckoutApiInitialization setPaymentMethod(String paymentMethod) {
-        this.paymentMethod = paymentMethod;
-        return this;
-    }
 
     public String getCurrency() {
         return currency;
@@ -142,7 +139,7 @@ public class CheckoutApiInitialization {
     }
 
     public CheckoutApiInitialization setSignedDateTime(String signedDateTime) {
-        this.signedDateTime = signedDateTime;
+        this.signedDateTime = LocalDateTime.now().toString();
         return this;
     }
 
@@ -200,15 +197,6 @@ public class CheckoutApiInitialization {
         return this;
     }
 
-    public String getBillToAddressState() {
-        return billToAddressState;
-    }
-
-    public CheckoutApiInitialization setBillToAddressState(String billToAddressState) {
-        this.billToAddressState = billToAddressState;
-        return this;
-    }
-
     public String getBillToAddressPostalCode() {
         return billToAddressPostalCode;
     }
@@ -263,23 +251,6 @@ public class CheckoutApiInitialization {
         return this;
     }
 
-    public String getPartnerSolutionId() {
-        return partnerSolutionId;
-    }
-
-    public CheckoutApiInitialization setPartnerSolutionId(String partnerSolutionId) {
-        this.partnerSolutionId = partnerSolutionId;
-        return this;
-    }
-
-    public String getSignedFieldNames() {
-        return signedFieldNames;
-    }
-
-    public CheckoutApiInitialization setSignedFieldNames(String signedFieldNames) {
-        this.signedFieldNames = signedFieldNames;
-        return this;
-    }
 
     public String getUnsignedFieldNames() {
         return unsignedFieldNames;
