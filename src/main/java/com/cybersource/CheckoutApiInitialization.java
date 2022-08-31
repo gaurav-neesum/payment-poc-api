@@ -25,8 +25,8 @@ public class CheckoutApiInitialization {
     public String amount;
     @JsonProperty("locale")
     public String locale;
-    @JsonProperty("signed_date_time")
-    public String signedDateTime;
+//    @JsonProperty("signed_date_time")
+//    public String signedDateTime;
     @JsonProperty("bill_to_forename")
     public String billToForename;
     @JsonProperty("bill_to_surname")
@@ -131,15 +131,6 @@ public class CheckoutApiInitialization {
 
     public CheckoutApiInitialization setLocale(String locale) {
         this.locale = locale;
-        return this;
-    }
-
-    public String getSignedDateTime() {
-        return signedDateTime;
-    }
-
-    public CheckoutApiInitialization setSignedDateTime(String signedDateTime) {
-        this.signedDateTime = LocalDateTime.now().toString();
         return this;
     }
 

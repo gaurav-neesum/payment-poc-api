@@ -48,7 +48,7 @@ public class CybersourcePaymentService {
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount(String.valueOf(amount));
         checkoutApiInitialization.setLocale("en");
-        checkoutApiInitialization.setSignedDateTime(LocalDateTime.now().atZone(ZoneId.of("Z")).toString());
+//        checkoutApiInitialization.setSignedDateTime(LocalDateTime.now().atZone(ZoneId.of("Z")).toString());
         checkoutApiInitialization.setBillToForename("Gaurav");
         checkoutApiInitialization.setBillToSurname("Shah");
         checkoutApiInitialization.setBillToPhone("07899899987");
