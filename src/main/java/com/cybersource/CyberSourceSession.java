@@ -2,7 +2,11 @@ package com.cybersource;
 
 import com.cybersource.authsdk.core.ConfigException;
 import com.cybersource.authsdk.core.MerchantConfig;
+import com.cybersource.authsdk.payloaddigest.PayloadDigest;
+import com.cybersource.authsdk.util.GlobalLabelParameters;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -26,6 +30,7 @@ import java.util.*;
 
 public class CyberSourceSession {
     private static String date = DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now(ZoneId.of("GMT")));
+    private static Logger logger = LogManager.getLogger(PayloadDigest.class);
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeyException, ConfigException {
 
@@ -40,7 +45,7 @@ public class CyberSourceSession {
         merchantConfig.setRequestType("POST");
         merchantConfig.setRequestHost("apitest.cybersource.com");
 
-        Arrays.asList("profile_id","access_key", "reference_number", "transaction_uuid", "transaction_type", "payment_method",
+        Arrays.asList("profile_id", "access_key", "reference_number", "transaction_uuid", "transaction_type", "payment_method",
                 "currency", "amount", "locale", "signed_date_time", "bill_to_forename", "bill_to_surname", "bill_to_phone", "bill_to_email",
                 "bill_to_address_line1", "bill_to_address_city", "bill_to_address_state", "bill_to_address_postal_code", "bill_to_address_country",
                 "override_backoffice_post_url", "override_custom_receipt_page", "ignore_avs", "ignore_cvn", "partner_solution_id", "signed_field_names", "unsigned_field_names");
@@ -53,11 +58,8 @@ public class CyberSourceSession {
         CheckoutApiInitialization checkoutApiInitialization = new CheckoutApiInitialization();
         checkoutApiInitialization.setProfileId(CybersourceConstants.profileId);
         checkoutApiInitialization.setAccessKey(CybersourceConstants.accessKey);
-//        checkoutApiInitialization.setReferenceNumber(UUID.randomUUID().toString());
-//        checkoutApiInitialization.setTransactionUUID(UUID.randomUUID().toString());
-
-        checkoutApiInitialization.setReferenceNumber("989c8442-4de0-421e-936e-4aae1c2e7f93");
-        checkoutApiInitialization.setTransactionUUID("da068362-3823-4b89-a3e7-118d6872611d");
+        checkoutApiInitialization.setReferenceNumber(UUID.randomUUID().toString());
+        checkoutApiInitialization.setTransactionUUID(UUID.randomUUID().toString());
         checkoutApiInitialization.setTransactionType("authorization,create_payment_token");
         checkoutApiInitialization.setPaymentMethod("card");
         checkoutApiInitialization.setCurrency("GBP");
@@ -73,8 +75,8 @@ public class CyberSourceSession {
         checkoutApiInitialization.setBillToAddressState("CA");
         checkoutApiInitialization.setBillToAddressPostalCode("CV10 0IS");
         checkoutApiInitialization.setBillToAddressCountry("UK");
-        checkoutApiInitialization.setOverrideBackofficePostUrl("https://webhook.site/aef5e955-9a59-44b3-a186-f9a42d23181a");
-        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8082/testing0804/1.php%20-%20WP%20Iframe%20PA&Token&Override%20URL/web/receipt.php");
+        checkoutApiInitialization.setOverrideBackofficePostUrl("https://localhost:8080/check-payment");
+        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8080/receipt");
         checkoutApiInitialization.setIgnoreAvs("true");
         checkoutApiInitialization.setIgnoreCvn("true");
 //        checkoutApiInitialization.setPartnerSolutionId("");
@@ -83,9 +85,12 @@ public class CyberSourceSession {
         sessionRequest.setCheckoutApiInitialization(checkoutApiInitialization);
         String requestBody = new ObjectMapper().writeValueAsString(sessionRequest);
         merchantConfig.setRequestData(requestBody);
+        System.out.println("From Own Implementation: " + generateDigest2(requestBody));
+        System.out.println("From Cybersource Copy: " + generateDigest(requestBody));
         merchantConfig.setRequestTarget("/microform/v2/sessions/");
         String url = "https://" + merchantConfig.getRequestHost() + merchantConfig.getRequestTarget();
         Response response = processPayment(merchantConfig);
+//        restTemplateImpl(requestBody);
         String code = response.getResponseCode();
 
 
@@ -106,6 +111,23 @@ public class CyberSourceSession {
         return "SHA-256=" + Base64.getEncoder().encodeToString(digest);
     }
 
+    public static String generateDigest2(String jsonPayload) {
+
+        MessageDigest digestString;
+        byte[] digestBytes = null;
+        try {
+            digestString = MessageDigest.getInstance("SHA-256");
+            digestBytes = digestString.digest(jsonPayload.getBytes(StandardCharsets.UTF_8));
+        } catch (Exception e) {
+            logger.fatal(GlobalLabelParameters.DIGEST_GEN_FAILED);
+            logger.error(e);
+            return null;
+        }
+        String bluePrint = Base64.getEncoder().encodeToString(digestBytes);
+        bluePrint = "SHA-256" + "=" + bluePrint;
+        return bluePrint;
+    }
+
     public static String generateSignatureFromParams(String signatureParams) throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeyException {
         String keyString = CybersourceConstants.restApiSharedSecret;
         String apiKey = CybersourceConstants.restApiKey;
@@ -120,7 +142,7 @@ public class CyberSourceSession {
     }
 
 
-   static Response processPayment(MerchantConfig merchantConfig) throws IOException {
+    static Response processPayment(MerchantConfig merchantConfig) throws IOException {
 
         HttpConnection connection = new HttpConnection(merchantConfig);
         return connection.httpConnection();
@@ -129,7 +151,7 @@ public class CyberSourceSession {
     }
 
 
-    void restTemplateImpl(String requestBody) throws NoSuchAlgorithmException, InvalidKeyException {
+    static void restTemplateImpl(String requestBody) throws NoSuchAlgorithmException, InvalidKeyException {
 
 
         System.out.println("requestBody: " + requestBody);

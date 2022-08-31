@@ -1,0 +1,6 @@
+1. How can we implement not using Cybersource Libraries?
+2. Can we use RestTemplate?
+3. When / Where do we use Cardinal Cruise Credentials?
+4. Usage of accessKey, profileId, restApiKey, restApiSharedSecret?
+5. Implementing 3DS 2?
+6. Implementing AVS / CVN rules?

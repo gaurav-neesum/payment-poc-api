@@ -64,6 +64,7 @@ public class HttpConnection {
 
     public void setDigest() {
         this.con.setRequestProperty("Digest", this.digestPayLoad.getDigest());
+        System.out.println("From Cybersource: " + this.digestPayLoad.getDigest());
         this.digestMessageBody = this.digestPayLoad.getMessageBody();
     }
 

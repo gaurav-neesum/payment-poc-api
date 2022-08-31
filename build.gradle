@@ -38,6 +38,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'mysql:mysql-connector-java:8.0.29'
-    implementation 'com.cybersource:cybersource-rest-client-java:0.0.47'
+
+    implementation 'com.cybersource:AuthenticationSdk:0.0.17'
+//    implementation 'com.cybersource:cybersource-rest-client-java:0.0.47'
 
 }
