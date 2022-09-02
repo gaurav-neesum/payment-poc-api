@@ -36,15 +36,7 @@ buildDir = 'target'
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
-    implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.2'
-
-// https://mvnrepository.com/artifact/jakarta.xml.bind/jakarta.xml.bind-api
     implementation 'jakarta.xml.bind:jakarta.xml.bind-api:4.0.0'
-    // https://mvnrepository.com/artifact/org.glassfish.jaxb/jaxb-runtime
-    implementation 'org.glassfish.jaxb:jaxb-runtime:4.0.0'
-
-    implementation 'com.cybersource:AuthenticationSdk:0.0.17'
-//    implementation 'com.cybersource:cybersource-rest-client-java:0.0.47'
+    implementation 'com.cybersource:AuthenticationSdk:0.0.22'
 
 }

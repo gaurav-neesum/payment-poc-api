@@ -4,6 +4,7 @@ import com.cybersource.authsdk.core.ConfigException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
@@ -25,6 +26,12 @@ public class CybersourcePaymentController {
     public ResponseEntity<?> pay(@RequestParam Double amount) throws IOException, ConfigException {
         String jwt = cybersourcePaymentService.initiatePayment(amount);
         return ResponseEntity.ok(jwt);
+    }
+
+    @PostMapping("/check-payment")
+    public ResponseEntity<?> checkPayment(HttpServletRequest servletRequest){
+        System.out.println("check payment called");
+        return ResponseEntity.ok("waalaaa");
     }
 
     //todo expecting a token in the request body from the UI

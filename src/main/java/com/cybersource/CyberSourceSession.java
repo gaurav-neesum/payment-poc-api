@@ -61,25 +61,21 @@ public class CyberSourceSession {
         checkoutApiInitialization.setReferenceNumber(UUID.randomUUID().toString());
         checkoutApiInitialization.setTransactionUUID(UUID.randomUUID().toString());
         checkoutApiInitialization.setTransactionType("authorization,create_payment_token");
-//        checkoutApiInitialization.setPaymentMethod("card");
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount("24.0");
         checkoutApiInitialization.setLocale("en");
-//        checkoutApiInitialization.setSignedDateTime(LocalDateTime.now().atZone(ZoneId.of("Z")).toString());
         checkoutApiInitialization.setBillToForename("Gaurav");
         checkoutApiInitialization.setBillToSurname("Shah");
         checkoutApiInitialization.setBillToPhone("07899899987");
         checkoutApiInitialization.setBillToEmail("g09.shah@gmail.com");
         checkoutApiInitialization.setBillToAddressLine1("1 My Apartment");
         checkoutApiInitialization.setBillToAddressCity("Nuneaton");
-//        checkoutApiInitialization.setBillToAddressState("CA");
         checkoutApiInitialization.setBillToAddressPostalCode("CV10 0IS");
         checkoutApiInitialization.setBillToAddressCountry("UK");
-        checkoutApiInitialization.setOverrideBackofficePostUrl("https://localhost:8080/check-payment");
+        checkoutApiInitialization.setOverrideBackofficePostUrl("https://dev-api.melaxpress.com/check-payment");
         checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8080/receipt");
         checkoutApiInitialization.setIgnoreAvs("true");
         checkoutApiInitialization.setIgnoreCvn("true");
-//        checkoutApiInitialization.setPartnerSolutionId("");
         checkoutApiInitialization.setUnsignedFieldNames("transient_token");
 
         sessionRequest.setCheckoutApiInitialization(checkoutApiInitialization);
