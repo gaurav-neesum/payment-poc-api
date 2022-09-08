@@ -43,7 +43,7 @@ public class CybersourcePaymentService {
         checkoutApiInitialization.setTransactionUUID(uuid1);
         System.out.println("UUID: " + uuid1);
 
-        checkoutApiInitialization.setTransactionType("authorization,create_payment_token");
+        checkoutApiInitialization.setTransactionType("authorization");
 //        checkoutApiInitialization.setPaymentMethod("card");
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount(String.valueOf(amount));
