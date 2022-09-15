@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -55,11 +54,12 @@ public class CyberSourceSession {
         targetOrigins.add("http://localhost:8082");
         sessionRequest.setTargetOrigins(targetOrigins);
 
+        String transactionUUID = UUID.randomUUID().toString();
         CheckoutApiInitialization checkoutApiInitialization = new CheckoutApiInitialization();
         checkoutApiInitialization.setProfileId(CybersourceConstants.profileId);
         checkoutApiInitialization.setAccessKey(CybersourceConstants.accessKey);
         checkoutApiInitialization.setReferenceNumber(UUID.randomUUID().toString());
-        checkoutApiInitialization.setTransactionUUID(UUID.randomUUID().toString());
+        checkoutApiInitialization.setTransactionUUID(transactionUUID);
         checkoutApiInitialization.setTransactionType("authorization,create_payment_token");
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount("24.0");
@@ -73,7 +73,7 @@ public class CyberSourceSession {
         checkoutApiInitialization.setBillToAddressPostalCode("CV10 0IS");
         checkoutApiInitialization.setBillToAddressCountry("UK");
         checkoutApiInitialization.setOverrideBackofficePostUrl("https://dev-api.melaxpress.com/check-payment");
-        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8080/receipt");
+        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8080/receipt?transactionUUID=" + transactionUUID);
         checkoutApiInitialization.setIgnoreAvs("true");
         checkoutApiInitialization.setIgnoreCvn("true");
         checkoutApiInitialization.setUnsignedFieldNames("transient_token");

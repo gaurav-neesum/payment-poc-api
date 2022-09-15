@@ -1,6 +1,8 @@
 package com.cybersource;
 
 import com.cybersource.authsdk.core.ConfigException;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,8 +11,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin()
@@ -29,14 +30,36 @@ public class CybersourcePaymentController {
     }
 
     @PostMapping("/check-payment")
-    public ResponseEntity<?> checkPayment(HttpServletRequest servletRequest){
-        System.out.println("check payment called");
+    public ResponseEntity<?> checkPayment(HttpServletRequest servletRequest) throws JsonProcessingException {
+        Iterator<String> paramIterable = servletRequest.getParameterNames().asIterator();
+
+        List<String> paramNames = new ArrayList<>();
+        while (paramIterable.hasNext()) {
+            paramNames.add(paramIterable.next());
+        }
+
+        Map<String, Object> stringObjectMap = new HashMap<>();
+        for (String param : paramNames) {
+            stringObjectMap.put(param, servletRequest.getParameter(param));
+        }
+
+        String body = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(stringObjectMap);
+
+        System.out.println(body);
+//        return ResponseEntity.ok(body);
+        return ResponseEntity.ok("<div>\n" +
+                "<label style=\"background-color: #b0efe6\">Payment Successful</label>\n" +
+                "</div>");
+    }
+
+    @GetMapping("/ola")
+    public ResponseEntity<?> getMethod() {
         return ResponseEntity.ok("waalaaa");
     }
 
     //todo expecting a token in the request body from the UI
     @PostMapping("/transient")
-    public ResponseEntity<?> postMethod(@RequestBody  Map<String, Object> obj) {
+    public ResponseEntity<?> postMethod(@RequestBody Map<String, Object> obj) {
 
         return ResponseEntity.ok("");
     }

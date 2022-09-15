@@ -58,8 +58,9 @@ public class CybersourcePaymentService {
 //        checkoutApiInitialization.setBillToAddressState("CA");
         checkoutApiInitialization.setBillToAddressPostalCode("CV11 6QS");
         checkoutApiInitialization.setBillToAddressCountry("GB");
-        checkoutApiInitialization.setOverrideBackofficePostUrl("https://webhook.site/aef5e955-9a59-44b3-a186-f9a42d23181a");
-        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8080/receipt");
+        checkoutApiInitialization.setOverrideBackofficePostUrl("https://devmelaapi.gauribaba.com/check-payment?reason_code=100");
+        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:5005/cb/check-payment");
+
         checkoutApiInitialization.setIgnoreAvs("false");
         checkoutApiInitialization.setIgnoreCvn("false");
         String signedFieldNames = "profile_id,access_key,reference_number,transaction_uuid,transaction_type,payment_method,currency,amount,locale,signed_date_time,bill_to_forename,bill_to_surname,bill_to_phone,bill_to_email,bill_to_address_line1,bill_to_address_city,bill_to_address_state,bill_to_address_postal_code,bill_to_address_country,override_backoffice_post_url,override_custom_receipt_page,ignore_avs,ignore_cvn,partner_solution_id,signed_field_names,unsigned_field_names";
