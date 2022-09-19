@@ -22,4 +22,4 @@ public class CybersourceConstants {
  */
 /**
  * {"targetOrigins":["http://localhost:8082"],"checkoutApiInitialization":{"profile_id":"D66633C4-B9D4-461B-9B39-9D14790DBF7C","access_key":"b2b496a3a0b43e5cba2ecc9a05e1b8de","reference_number":"989c8442-4de0-421e-936e-4aae1c2e7f93","transaction_uuid":"da068362-3823-4b89-a3e7-118d6872611d","transaction_type":"authorization, create_payment_token","payment_method:":"card","currency":"GBP","amount":"24.0","locale":"en","bill_to_forename":"Gaurav","bill_to_surname":"Shah","bill_to_phone":"07899899987","bill_to_email":"g09.shah@gmail.com","bill_to_address_line1":"1 My Apartment","bill_to_address_city":"Nuneaton","bill_to_address_state":"CA","bill_to_address_postal_code":"CV10 0IS","bill_to_address_country":"UK","override_backoffice_post_url":"https://webhook.site/aef5e955-9a59-44b3-a186-f9a42d23181a","override_custom_receipt_page":"http://localhost:8082/testing0804/1.php%20-%20WP%20Iframe%20PA&Token&Override%20URL/web/receipt.php","ignore_avs":"true","ignore_cvn":"true","partner_solution_id":null,"unsigned_field_names":"transient_token"}}
- */
+// */

@@ -32,9 +32,6 @@ public class CyberSourceSession {
     private static Logger logger = LogManager.getLogger(PayloadDigest.class);
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeyException, ConfigException {
-
-        String authenticationType;
-        Properties merchantProp;
         MerchantConfig merchantConfig = new MerchantConfig();
         merchantConfig.setMerchantID("novacroft_sandbox");
         merchantConfig.setMerchantKeyId(CybersourceConstants.restApiKey);

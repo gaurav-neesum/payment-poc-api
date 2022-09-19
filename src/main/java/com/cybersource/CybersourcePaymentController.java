@@ -38,12 +38,13 @@ public class CybersourcePaymentController {
             paramNames.add(paramIterable.next());
         }
 
-        Map<String, Object> stringObjectMap = new HashMap<>();
+        Map<String, Object> receiptBody = new HashMap<>();
         for (String param : paramNames) {
-            stringObjectMap.put(param, servletRequest.getParameter(param));
+            receiptBody.put(param, servletRequest.getParameter(param));
         }
+//        boolean successfulPayment = cybersourcePaymentService
 
-        String body = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(stringObjectMap);
+        String body = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(receiptBody);
 
         System.out.println(body);
 //        return ResponseEntity.ok(body);
