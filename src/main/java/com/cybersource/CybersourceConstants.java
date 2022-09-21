@@ -1,6 +1,14 @@
 package com.cybersource;
 
 public class CybersourceConstants {
+    public static final String MERCHANT_ID = "v-c-merchant-id";
+    public static final String HOST = "host";
+    public static final String DATE = "date";
+    public static final String DIGEST = "digest";
+    public static final String SIGNATURE = "signature";
+    public static final String CONTENT_TYPE = "Content-Type";
+
+    public static final String V_C_CORRELATION_ID = "v-c-correlation-id";
     public static String profileId = "D66633C4-B9D4-461B-9B39-9D14790DBF7C";
     //    public static String accessKey = "b2b496a3a0b43e5cba2ecc9a05e1b8de";
     public static String accessKey = "b2b496a3a0b43e5cba2ecc9a05e1b8de";

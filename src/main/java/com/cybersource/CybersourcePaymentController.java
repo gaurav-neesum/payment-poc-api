@@ -23,9 +23,15 @@ public class CybersourcePaymentController {
         this.cybersourcePaymentService = cybersourcePaymentService;
     }
 
-    @PostMapping("/start-payment")
+     @PostMapping("/start-payment")
     public ResponseEntity<?> pay(@RequestParam Double amount) throws IOException, ConfigException {
         String jwt = cybersourcePaymentService.initiatePayment(amount);
+        return ResponseEntity.ok(jwt);
+    }
+
+     @GetMapping("/test/start-payment/{amount}")
+    public ResponseEntity<?> testPay(@PathVariable Double amount) throws IOException, ConfigException, NoSuchAlgorithmException, InvalidKeyException {
+        String jwt = cybersourcePaymentService.initiatePaymentWithRestTemplate(amount);
         return ResponseEntity.ok(jwt);
     }
 
