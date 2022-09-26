@@ -8,10 +8,6 @@ import com.cybersource.CybersourceConstants;
 import com.cybersource.authsdk.core.Authorization;
 import com.cybersource.authsdk.core.ConfigException;
 import com.cybersource.authsdk.core.MerchantConfig;
-import com.cybersource.authsdk.http.HttpSignatureToken;
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -33,32 +29,33 @@ import java.time.format.DateTimeFormatter;
 import java.util.Base64;
 import java.util.Properties;
 
-import static com.cybersource.test.TransactionDetailsCB.getMerchantDetails;
+import static com.cybersource.test.Config.getMerchantDetails;
+
 
 public class RetrieveTransactionDetails {
     private static final String date = DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now(ZoneId.of("GMT")));
 
-    public static void unirestCall() throws UnirestException, ConfigException {
-        Unirest.setTimeouts(0, 0);
+//    public static void unirestCall() throws UnirestException, ConfigException {
+//        Unirest.setTimeouts(0, 0);
+//
+//        Authorization authorization = new Authorization();
+//        String token = authorization.getToken(getMerchantConfig(getMerchantDetails()));
+//        HttpSignatureToken httpSignatureToken = new HttpSignatureToken(getMerchantConfig(getMerchantDetails()));
+//        String tok = httpSignatureToken.getToken();
+//        String sig = getSignature();
+//        HttpResponse<String> response = Unirest.get("https://apitest.cybersource.com/tss/v2/transactions/6624634111936538504003")
+//                .header("signature", tok)
+////                .header("signature", "	keyid=\"291c53de-b6cf-4356-ab75-a9e52231e674\", algorithm=\"HmacSHA256\", headers=\"host  (request-target) v-c-merchant-id\", signature=\"94zwMvpobEecmFCPdQKOB/MN+Oy2ELnrqFzhW06n0Gk=\"")
+//                .header("v-c-merchant-id", "novacroft_sandbox")
+//                .header("v-c-date", "Sun, 18 Sep 2022 10:19:06 GMT")
+//                .asString();
+//        System.out.println("UNIREST--------------------------");
+//        System.out.println(response.getBody());
+//    }
 
-        Authorization authorization = new Authorization();
-        String token = authorization.getToken(getMerchantConfig(getMerchantDetails()));
-        HttpSignatureToken httpSignatureToken = new HttpSignatureToken(getMerchantConfig(getMerchantDetails()));
-        String tok = httpSignatureToken.getToken();
-        String sig = getSignature();
-        HttpResponse<String> response = Unirest.get("https://apitest.cybersource.com/tss/v2/transactions/6624634111936538504003")
-                .header("signature", tok)
-//                .header("signature", "	keyid=\"291c53de-b6cf-4356-ab75-a9e52231e674\", algorithm=\"HmacSHA256\", headers=\"host  (request-target) v-c-merchant-id\", signature=\"94zwMvpobEecmFCPdQKOB/MN+Oy2ELnrqFzhW06n0Gk=\"")
-                .header("v-c-merchant-id", "novacroft_sandbox")
-                .header("v-c-date", "Sun, 18 Sep 2022 10:19:06 GMT")
-                .asString();
-        System.out.println("UNIREST--------------------------");
-        System.out.println(response.getBody());
-    }
-
-    public static void main(String[] args) throws ConfigException, ApiException, UnirestException, URISyntaxException {
-        unirestCall();
-//        process("6634947915186859104003");
+    public static void main(String[] args) throws ConfigException, ApiException, URISyntaxException {
+//        unirestCall();
+        process("6634947915186859104003");
         if (true) {
             return;
         }

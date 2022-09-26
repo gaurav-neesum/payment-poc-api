@@ -44,28 +44,23 @@ public class CybersourcePaymentService {
         System.out.println("UUID: " + uuid1);
 
         checkoutApiInitialization.setTransactionType("authorization");
-//        checkoutApiInitialization.setPaymentMethod("card");
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount(String.valueOf(amount));
         checkoutApiInitialization.setLocale("en");
-//        checkoutApiInitialization.setSignedDateTime(LocalDateTime.now().atZone(ZoneId.of("Z")).toString());
-        checkoutApiInitialization.setBillToForename("Gaurav");
-        checkoutApiInitialization.setBillToSurname("Shah");
+        checkoutApiInitialization.setBillToForename("Bob");
+        checkoutApiInitialization.setBillToSurname("Minion");
         checkoutApiInitialization.setBillToPhone("07899899987");
-        checkoutApiInitialization.setBillToEmail("g09.shah@gmail.com");
-        checkoutApiInitialization.setBillToAddressLine1("1 My Apartment");
+        checkoutApiInitialization.setBillToEmail("bobminion@gru.com");
+        checkoutApiInitialization.setBillToAddressLine1("billToAddressLine1");
         checkoutApiInitialization.setBillToAddressCity("Nuneaton");
-//        checkoutApiInitialization.setBillToAddressState("CA");
         checkoutApiInitialization.setBillToAddressPostalCode("CV11 6QS");
+        //4111 1111 1111 1111
         checkoutApiInitialization.setBillToAddressCountry("GB");
         checkoutApiInitialization.setOverrideBackofficePostUrl("https://devmelaapi.gauribaba.com/check-payment?reason_code=100");
         checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:5005/cb/check-payment");
 
-        checkoutApiInitialization.setIgnoreAvs("true");
+        checkoutApiInitialization.setIgnoreAvs("false");
         checkoutApiInitialization.setIgnoreCvn("false");
-        String signedFieldNames = "profile_id,access_key,reference_number,transaction_uuid,transaction_type,payment_method,currency,amount,locale,signed_date_time,bill_to_forename,bill_to_surname,bill_to_phone,bill_to_email,bill_to_address_line1,bill_to_address_city,bill_to_address_state,bill_to_address_postal_code,bill_to_address_country,override_backoffice_post_url,override_custom_receipt_page,ignore_avs,ignore_cvn,partner_solution_id,signed_field_names,unsigned_field_names";
-//        checkoutApiInitialization.setSignedFieldNames(signedFieldNames);
-
         checkoutApiInitialization.setUnsignedFieldNames("transient_token");
 
         sessionRequest.setCheckoutApiInitialization(checkoutApiInitialization);

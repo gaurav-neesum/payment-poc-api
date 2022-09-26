@@ -11,6 +11,8 @@ import Invokers.ApiClient;
 import Invokers.ApiException;
 import Model.*;
 
+import static com.cybersource.test.Config.getMerchantDetails;
+
 /**
  * v-c-merchant-id: novacroft_sandbox
  * Accept: application/hal+json;charset=utf-8
@@ -55,22 +57,6 @@ public class TransactionDetailsCB {
         }
         return result;
     }
-    public  static Properties getMerchantDetails(){
-        Properties props = new Properties();
 
-        // HTTP_Signature = http_signature and JWT = jwt
-        props.setProperty("authenticationType", "http_signature");
-        props.setProperty("merchantID", "novacroft_sandbox");
-        props.setProperty("runEnvironment", "apitest.cybersource.com");
-//        props.setProperty("requestJsonPath", "src/main/resources/request.json");
-
-
-        // HTTP Parameters
-        props.setProperty("merchantKeyId", CybersourceConstants.restApiKey);
-        props.setProperty("merchantsecretKey", CybersourceConstants.restApiSharedSecret);
-
-
-        return props;
-    }
 
 }

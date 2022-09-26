@@ -4,6 +4,7 @@ import com.cybersource.authsdk.core.ConfigException;
 import com.cybersource.authsdk.core.MerchantConfig;
 import com.cybersource.authsdk.payloaddigest.PayloadDigest;
 import com.cybersource.authsdk.util.GlobalLabelParameters;
+import com.cybersource.authsdk.util.PropertiesUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -28,8 +29,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CyberSourceSession {
-    private static String date = DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now(ZoneId.of("GMT")));
-    private static Logger logger = LogManager.getLogger(PayloadDigest.class);
+//    private static final String date = DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now(ZoneId.of("GMT")));
+    private static final Logger logger = LogManager.getLogger(PayloadDigest.class);
 
     public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeyException, ConfigException {
         MerchantConfig merchantConfig = new MerchantConfig();
@@ -41,10 +42,6 @@ public class CyberSourceSession {
         merchantConfig.setRequestType("POST");
         merchantConfig.setRequestHost("apitest.cybersource.com");
 
-        Arrays.asList("profile_id", "access_key", "reference_number", "transaction_uuid", "transaction_type", "payment_method",
-                "currency", "amount", "locale", "signed_date_time", "bill_to_forename", "bill_to_surname", "bill_to_phone", "bill_to_email",
-                "bill_to_address_line1", "bill_to_address_city", "bill_to_address_state", "bill_to_address_postal_code", "bill_to_address_country",
-                "override_backoffice_post_url", "override_custom_receipt_page", "ignore_avs", "ignore_cvn", "partner_solution_id", "signed_field_names", "unsigned_field_names");
 
         SessionRequest sessionRequest = new SessionRequest();
         ArrayList<String> targetOrigins = new ArrayList<>();
@@ -145,6 +142,7 @@ public class CyberSourceSession {
 
 
     static void restTemplateImpl(String requestBody) throws NoSuchAlgorithmException, InvalidKeyException {
+        String date = getDate();
 
 
         System.out.println("requestBody: " + requestBody);
@@ -165,7 +163,6 @@ public class CyberSourceSession {
         headers.set("v-c-merchant-id", "novacroft_sandbox");
         headers.set("Signature", signature);
         headers.set("User-Agent", "Mozilla/5.0");
-//        headers.set("accept", "application/json");
         headers.set("Content-Type", "application/json");
 
         HttpEntity<String> entity = new HttpEntity<String>(requestBody, headers);
@@ -173,6 +170,12 @@ public class CyberSourceSession {
 
         String responseStr = response.getBody();
         System.out.println(responseStr);
+    }
+
+
+    static String getDate() {
+        return DateTimeFormatter.RFC_1123_DATE_TIME.format(ZonedDateTime.now(ZoneId.of("GMT")));
+
     }
 }
 //keyid="291c53de-b6cf-4356-ab75-a9e52231e674",algorithm="HmacSHA256",headers="host date (request-target) digest v-c-merchant-id",signature="JY0xhbL90ckSZhbIl4158nBxHHuvDDL4zWW6twbKkIM="

@@ -39,8 +39,6 @@ public class CheckoutApiInitialization {
     public String billToAddressLine1;
     @JsonProperty("bill_to_address_city")
     public String billToAddressCity;
-//    @JsonProperty("bill_to_address_state")
-//    public String billToAddressState;
     @JsonProperty("bill_to_address_postal_code")
     public String billToAddressPostalCode;
     @JsonProperty("bill_to_address_country")
@@ -53,10 +51,6 @@ public class CheckoutApiInitialization {
     public String ignoreAvs;
     @JsonProperty("ignore_cvn")
     public String ignoreCvn;
-//    @JsonProperty("partner_solution_id")
-//    public String partnerSolutionId;
-//    @JsonProperty("signed_field_names")
-//    public String signedFieldNames;
     @JsonProperty("unsigned_field_names")
     public String unsignedFieldNames;
 

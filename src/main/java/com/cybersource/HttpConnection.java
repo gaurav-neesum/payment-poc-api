@@ -170,11 +170,9 @@ public class HttpConnection {
         }
 
         this.endConnection();
-        if (response != null) {
-            this.maskingPayload(response.toString());
-            String resp = Masking.prepareMasking(response.toString());
-            responseObj.setResponseMessage(resp);
-        }
+        this.maskingPayload(response.toString());
+        String resp = Masking.prepareMasking(response.toString());
+        responseObj.setResponseMessage(resp);
 
         return responseObj;
     }
