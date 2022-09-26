@@ -2,10 +2,6 @@ package com.cybersource;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-
 public class CheckoutApiInitialization {
     @JsonProperty("profile_id")
     public String profileId;

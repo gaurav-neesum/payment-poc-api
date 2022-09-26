@@ -32,4 +32,13 @@ public class Response {
     public void setResponseCode(String responseCode) {
         this.responseCode = responseCode;
     }
+
+    @Override
+    public String toString() {
+        return "Response{" +
+                "responseMessage='" + responseMessage + '\'' +
+                ", responseCode='" + responseCode + '\'' +
+                ", VcCorelationId='" + VcCorelationId + '\'' +
+                '}';
+    }
 }
