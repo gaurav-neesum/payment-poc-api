@@ -49,7 +49,6 @@ public class CheckoutApiInitialization {
     public String ignoreCvn;
     @JsonProperty("unsigned_field_names")
     public String unsignedFieldNames;
-
     public String getProfileId() {
         return profileId;
     }

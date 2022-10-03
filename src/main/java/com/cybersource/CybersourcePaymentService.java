@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -31,6 +30,7 @@ public class CybersourcePaymentService {
         merchantConfig.setRequestType("POST");
         merchantConfig.setRequestHost("apitest.cybersource.com");
 
+        String merchantReference = "701040298373620710";
 
         SessionRequest sessionRequest = new SessionRequest();
         ArrayList<String> targetOrigins = new ArrayList<>();
@@ -41,8 +41,8 @@ public class CybersourcePaymentService {
         checkoutApiInitialization.setProfileId(CybersourceConstants.profileId);
         checkoutApiInitialization.setAccessKey(CybersourceConstants.accessKey);
         String uuid1 = UUID.randomUUID().toString();
-        checkoutApiInitialization.setReferenceNumber(uuid1);
-        checkoutApiInitialization.setTransactionUUID(uuid1);
+        checkoutApiInitialization.setReferenceNumber(merchantReference);
+        checkoutApiInitialization.setTransactionUUID(merchantReference);
         System.out.println("UUID: " + uuid1);
 
         checkoutApiInitialization.setTransactionType("authorization");
@@ -81,13 +81,14 @@ public class CybersourcePaymentService {
         ArrayList<String> targetOrigins = new ArrayList<>();
         targetOrigins.add("http://localhost:8080");
         sessionRequest.setTargetOrigins(targetOrigins);
+        String merchantReference = "701040298373620710";
 
         CheckoutApiInitialization checkoutApiInitialization = new CheckoutApiInitialization();
         checkoutApiInitialization.setProfileId(CybersourceConstants.profileId);
         checkoutApiInitialization.setAccessKey(CybersourceConstants.accessKey);
         String uuid1 = UUID.randomUUID().toString();
-        checkoutApiInitialization.setReferenceNumber(uuid1);
-        checkoutApiInitialization.setTransactionUUID(uuid1);
+        checkoutApiInitialization.setReferenceNumber(merchantReference);
+        checkoutApiInitialization.setTransactionUUID(merchantReference);
         System.out.println("UUID: " + uuid1);
 
         checkoutApiInitialization.setTransactionType("authorization");
@@ -119,7 +120,7 @@ public class CybersourcePaymentService {
 
     static Response processPayment(MerchantConfig merchantConfig) throws IOException {
 
-        HttpConnection connection = new HttpConnection(merchantConfig);
+        PocHttpConnection connection = new PocHttpConnection(merchantConfig);
         return connection.httpConnection();
 
 

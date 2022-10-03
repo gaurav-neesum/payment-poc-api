@@ -14,8 +14,8 @@ import java.net.URL;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class HttpConnection {
-    private static Logger logger = LogManager.getLogger(HttpConnection.class);
+public class PocHttpConnection {
+    private static Logger logger = LogManager.getLogger(PocHttpConnection.class);
     private MerchantConfig merchantConfig;
     private PayloadDigest digestPayLoad;
     private HttpURLConnection con;
@@ -26,7 +26,7 @@ public class HttpConnection {
     private String digestMessageBody;
     private String requestHost;
 
-    public HttpConnection(MerchantConfig merchantConfig) {
+    public PocHttpConnection(MerchantConfig merchantConfig) {
         this.merchantConfig = merchantConfig;
         this.digestPayLoad = new PayloadDigest(merchantConfig);
         this.requestType = merchantConfig.getRequestType();

@@ -38,8 +38,7 @@ public class CapturePayment {
         try {
             merchantProp = Config.getMerchantDetails();
             ApiClient apiClient = new ApiClient();
-            MerchantConfig merchantConfig = new MerchantConfig(merchantProp);
-            apiClient.merchantConfig = merchantConfig;
+            apiClient.merchantConfig = new MerchantConfig(merchantProp);
 
             CaptureApi apiInstance = new CaptureApi(apiClient);
             result = apiInstance.capturePayment(requestObj, id);

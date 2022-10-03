@@ -9,8 +9,6 @@ import com.cybersource.authsdk.util.PropertiesUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -157,7 +155,7 @@ public class CyberSourceSession {
 
     static Response processPayment(MerchantConfig merchantConfig) throws IOException {
 
-        HttpConnection connection = new HttpConnection(merchantConfig);
+        PocHttpConnection connection = new PocHttpConnection(merchantConfig);
         return connection.httpConnection();
 
 

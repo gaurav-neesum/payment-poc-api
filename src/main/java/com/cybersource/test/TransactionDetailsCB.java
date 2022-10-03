@@ -30,7 +30,7 @@ public class TransactionDetailsCB {
     private static Properties merchantProp;
 
     public static void main(String args[]) throws Exception {
-        run("6624634111936538504003");
+        run("6647473609296689704953");
     }
 
     public static TssV2TransactionsGet200Response run(String id) throws InterruptedException {
@@ -39,7 +39,7 @@ public class TransactionDetailsCB {
 
         TssV2TransactionsGet200Response result = null;
         try {
-            merchantProp =getMerchantDetails();
+            merchantProp = getMerchantDetails();
             NovaCustomApiClient apiClient = new NovaCustomApiClient();
             apiClient.merchantConfig = new MerchantConfig(merchantProp);
 
