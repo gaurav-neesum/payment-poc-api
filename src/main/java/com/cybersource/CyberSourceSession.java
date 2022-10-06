@@ -139,7 +139,7 @@ public class CyberSourceSession {
         return bluePrint;
     }
 
-    public static String generateSignatureFromParams(String signatureParams) throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeyException {
+    public static String generateSignatureFromParams(String signatureParams) throws NoSuchAlgorithmException, InvalidKeyException {
         String keyString = CybersourceConstants.restApiSharedSecret;
         String apiKey = CybersourceConstants.restApiKey;
         byte[] decodedKey = Base64.getDecoder().decode(keyString);

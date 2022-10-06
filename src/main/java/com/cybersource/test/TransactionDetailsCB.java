@@ -1,4 +1,5 @@
 package com.cybersource.test;
+import java.io.Serializable;
 import java.util.*;
 
 import Invokers.Configuration;
@@ -10,6 +11,12 @@ import Api.*;
 import Invokers.ApiClient;
 import Invokers.ApiException;
 import Model.*;
+import com.google.gson.Gson;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.ResponseBody;
+import okio.BufferedSource;
+import org.springframework.lang.Nullable;
 
 import static com.cybersource.test.Config.getMerchantDetails;
 
@@ -40,9 +47,10 @@ public class TransactionDetailsCB {
         TssV2TransactionsGet200Response result = null;
         try {
             merchantProp = getMerchantDetails();
-            NovaCustomApiClient apiClient = new NovaCustomApiClient();
+//            NovaCustomApiClient apiClient = new NovaCustomApiClient();
+            ApiClient apiClient = new ApiClient();
             apiClient.merchantConfig = new MerchantConfig(merchantProp);
-
+            apiClient.setJSON(new CustomJSON(apiClient));// Your Custom JSON class here
             TransactionDetailsApi apiInstance = new TransactionDetailsApi(apiClient);
             result = apiInstance.getTransaction(id);
 
@@ -58,5 +66,32 @@ public class TransactionDetailsCB {
         return result;
     }
 
+    class CustomOkHttpClient extends OkHttpClient{
 
+    }
+
+    class CustomResponse extends ResponseBody implements Serializable{
+        private final @Nullable String contentTypeString;
+        private final long contentLength;
+        private final BufferedSource source;
+
+        public CustomResponse(
+                @Nullable String contentTypeString, long contentLength, BufferedSource source) {
+            this.contentTypeString = contentTypeString;
+            this.contentLength = contentLength;
+            this.source = source;
+        }
+
+        @Override public MediaType contentType() {
+            return contentTypeString != null ? MediaType.parse(contentTypeString) : null;
+        }
+
+        @Override public long contentLength() {
+            return contentLength;
+        }
+
+        @Override public BufferedSource source() {
+            return source;
+        }
+    }
 }
