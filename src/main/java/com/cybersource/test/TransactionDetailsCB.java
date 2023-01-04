@@ -46,12 +46,9 @@ public class TransactionDetailsCB {
         TssV2TransactionsGet200Response result = null;
         try {
             merchantProp = getMerchantDetails();
-            merchantProp.setProperty("userDefinedConnectionTimeout", String.valueOf(1));
-            merchantProp.setProperty("userDefinedReadTimeout", String.valueOf(1));
-            merchantProp.setProperty("userDefinedWriteTimeout", String.valueOf(1));
             NovaCustomApiClient apiClient = new NovaCustomApiClient();
             apiClient.merchantConfig = new MerchantConfig(merchantProp);
-
+            apiClient.setJSON(new CustomJSON(apiClient));// Your Custom JSON class here
             TransactionDetailsApi apiInstance = new TransactionDetailsApi(apiClient);
             result = apiInstance.getTransaction(id);
 
