@@ -1,15 +1,21 @@
 package com.cybersource.test;
-import java.util.*;
 
-import Invokers.Configuration;
-import com.cybersource.CybersourceConstants;
-import com.cybersource.NovaCustomApiClient;
-import com.cybersource.authsdk.core.MerchantConfig;
-
-import Api.*;
+import Api.TransactionDetailsApi;
 import Invokers.ApiClient;
 import Invokers.ApiException;
-import Model.*;
+import Model.TssV2TransactionsGet200Response;
+import Model.TssV2TransactionsGet200ResponseApplicationInformation;
+import Model.TssV2TransactionsGet200ResponseApplicationInformationApplications;
+import com.cybersource.NovaCustomApiClient;
+import com.cybersource.authsdk.core.ConfigException;
+import com.cybersource.authsdk.core.MerchantConfig;
+import com.cybersource.test.backgrd.TransactionAction;
+
+import java.net.SocketException;
+import java.net.SocketTimeoutException;
+import java.util.List;
+import java.util.Properties;
+import java.util.stream.Collectors;
 
 import static com.cybersource.test.Config.getMerchantDetails;
 
@@ -30,7 +36,7 @@ public class TransactionDetailsCB {
     private static Properties merchantProp;
 
     public static void main(String args[]) throws Exception {
-        run("6647473609296689704953");
+        run("6708558677846651504951");
     }
 
     public static TssV2TransactionsGet200Response run(String id) throws InterruptedException {
@@ -40,6 +46,9 @@ public class TransactionDetailsCB {
         TssV2TransactionsGet200Response result = null;
         try {
             merchantProp = getMerchantDetails();
+            merchantProp.setProperty("userDefinedConnectionTimeout", String.valueOf(1));
+            merchantProp.setProperty("userDefinedReadTimeout", String.valueOf(1));
+            merchantProp.setProperty("userDefinedWriteTimeout", String.valueOf(1));
             NovaCustomApiClient apiClient = new NovaCustomApiClient();
             apiClient.merchantConfig = new MerchantConfig(merchantProp);
 
@@ -51,12 +60,31 @@ public class TransactionDetailsCB {
             System.out.println("ResponseCode :" + responseCode);
             System.out.println("ResponseMessage :" + status);
             System.out.println(result);
+            TssV2TransactionsGet200ResponseApplicationInformation applicationInformation = result.getApplicationInformation();
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            List<TssV2TransactionsGet200ResponseApplicationInformationApplications> applications = applicationInformation.getApplications().stream().filter(app -> app.getName().equals("ics_auth")).collect(Collectors.toList());
+
+            if (applications.isEmpty()) {
+                System.out.println("Do Nothing");
+            } else {
+                TssV2TransactionsGet200ResponseApplicationInformationApplications icsAuthApplication = applications.get(0);
+                if (icsAuthApplication.getStatus() != null && icsAuthApplication.getStatus().equals("100")) {
+                    System.out.println("Yes Reverse");
+                } else {
+                    System.out.println("Do Nothing");
+
+                }
+            }
+            return result;
+        } catch (ConfigException | ApiException  e) {
+            if (e instanceof ApiException && ((ApiException) e).getCode() == 404) {
+                System.out.println("not found budd");
+                return null;
+            } else {
+                e.printStackTrace();
+                throw new RuntimeException(e);
+            }
+
         }
-        return result;
     }
-
-
 }

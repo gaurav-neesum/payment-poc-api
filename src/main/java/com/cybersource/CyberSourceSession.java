@@ -9,6 +9,7 @@ import com.cybersource.authsdk.util.PropertiesUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.http.*;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
@@ -40,7 +41,7 @@ public class CyberSourceSession {
 
     private static Logger logger = LogManager.getLogger(PayloadDigest.class);
 
-    public static void main(String[] args) throws IOException, NoSuchAlgorithmException, InvalidKeyException, ConfigException {
+    public static void main(String[] args) throws IOException, ConfigException {
         MerchantConfig merchantConfig = new MerchantConfig();
         merchantConfig.setMerchantID(NOVACROFT_SANDBOX);
         merchantConfig.setMerchantKeyId(CybersourceConstants.restApiKey);
@@ -60,9 +61,9 @@ public class CyberSourceSession {
         CheckoutApiInitialization checkoutApiInitialization = new CheckoutApiInitialization();
         checkoutApiInitialization.setProfileId(CybersourceConstants.profileId);
         checkoutApiInitialization.setAccessKey(CybersourceConstants.accessKey);
-        checkoutApiInitialization.setReferenceNumber(UUID.randomUUID().toString());
+        checkoutApiInitialization.setReferenceNumber(transactionUUID);
         checkoutApiInitialization.setTransactionUUID(transactionUUID);
-        checkoutApiInitialization.setTransactionType("authorization,create_payment_token");
+        checkoutApiInitialization.setTransactionType("authorization");
         checkoutApiInitialization.setCurrency("GBP");
         checkoutApiInitialization.setAmount("24.0");
         checkoutApiInitialization.setLocale("en");
@@ -74,8 +75,11 @@ public class CyberSourceSession {
         checkoutApiInitialization.setBillToAddressCity("Nuneaton");
         checkoutApiInitialization.setBillToAddressPostalCode("CV10 0IS");
         checkoutApiInitialization.setBillToAddressCountry("UK");
-        checkoutApiInitialization.setOverrideBackofficePostUrl("https://dev-api.melaxpress.com/check-payment");
-        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8080/receipt?transactionUUID=" + transactionUUID);
+
+        checkoutApiInitialization.setOverrideBackofficePostUrl("https://nova.crofty.com");
+
+        checkoutApiInitialization.setOverrideCustomReceiptPage("http://localhost:8082/receipt?transactionUUID=" + transactionUUID);
+
         checkoutApiInitialization.setIgnoreAvs("true");
         checkoutApiInitialization.setIgnoreCvn("true");
         checkoutApiInitialization.setUnsignedFieldNames("transient_token");
@@ -83,20 +87,21 @@ public class CyberSourceSession {
         sessionRequest.setCheckoutApiInitialization(checkoutApiInitialization);
         String requestBody = new ObjectMapper().writeValueAsString(sessionRequest);
         merchantConfig.setRequestData(requestBody);
-        System.out.println("From Own Implementation: " + generateDigest2(requestBody));
-        System.out.println("From Cybersource Copy: " + generateDigest(requestBody));
         merchantConfig.setRequestTarget("/microform/v2/sessions/");
-        String url = "https://" + merchantConfig.getRequestHost() + merchantConfig.getRequestTarget();
+        Response response = processPayment(merchantConfig);
 
-        String signatureParam = "host: apitest.cybersource.com\n date: " + date + "\n (request-target): post /microform/v2/sessions/"
-                + "\ndigest: " + generateDigest(requestBody) + "\n v-c-merchant-id: novacroft_sandbox";
-        String signature = generateSignatureFromParams(signatureParam);
-        System.out.println("From Own Signature: " + signature);
-        Authorization authorization = new Authorization();
-        System.out.println("Cybersource Signature: " + authorization.getToken(merchantConfig));
-        //Response response = processPayment(merchantConfig);
+//        String url = "https://" + merchantConfig.getRequestHost() + merchantConfig.getRequestTarget();
+
+//        String signatureParam = "host: apitest.cybersource.com\n date: " + date + "\n (request-target): post /microform/v2/sessions/"
+//                + "\ndigest: " + generateDigest(requestBody) + "\n v-c-merchant-id: novacroft_sandbox";
+//        String signature = generateSignatureFromParams(signatureParam);
+//        System.out.println("From Own Signature: " + signature);
+//        Authorization authorization = new Authorization();
+//        System.out.println("Cybersource Signature: " + authorization.getToken(merchantConfig));
+        System.out.println("is it okay?: " + Strings.isBlank(response.getResponseMessage()));
+        System.out.println(transactionUUID);
         //restTemplateImpl(requestBody, merchantConfig);
-        restTemplateImpl3(requestBody);
+//        restTemplateImpl3(requestBody);
         // String code = response.getResponseCode();
 
 

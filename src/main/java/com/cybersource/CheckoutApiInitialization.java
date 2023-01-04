@@ -13,16 +13,13 @@ public class CheckoutApiInitialization {
     public String transactionUUID;
     @JsonProperty("transaction_type")
     public String transactionType;
-//    @JsonProperty("payment_method")
-//    public String paymentMethod;
+
     @JsonProperty("currency")
     public String currency;
     @JsonProperty("amount")
     public String amount;
     @JsonProperty("locale")
     public String locale;
-//    @JsonProperty("signed_date_time")
-//    public String signedDateTime;
     @JsonProperty("bill_to_forename")
     public String billToForename;
     @JsonProperty("bill_to_surname")

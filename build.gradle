@@ -8,6 +8,7 @@ buildscript {
 
 buildscript {
     repositories {
+        mavenCentral()
         mavenLocal()
         maven { url 'http://cplxws10/nexus/content/groups/public' }
     }
@@ -16,7 +17,7 @@ buildscript {
     }
 }
 repositories {
-
+    mavenCentral()
     mavenLocal()
     maven { url 'http://cplxws10/nexus/content/groups/public' }
 }
