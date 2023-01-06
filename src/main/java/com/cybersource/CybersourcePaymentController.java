@@ -1,6 +1,8 @@
 package com.cybersource;
 
 import com.cybersource.authsdk.core.ConfigException;
+import com.cybersource.authsdk.core.MerchantConfig;
+import com.cybersource.test.Config;
 import com.cybersource.test.PaulinaCybersourceService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,7 +43,7 @@ public class CybersourcePaymentController {
     }
 
     @PostMapping("/check-payment")
-    public ResponseEntity<?> checkPayment(HttpServletRequest servletRequest) throws JsonProcessingException {
+    public ResponseEntity<?> checkPayment(HttpServletRequest servletRequest) throws JsonProcessingException, ConfigException {
         Iterator<String> paramIterable = servletRequest.getParameterNames().asIterator();
 
         List<String> paramNames = new ArrayList<>();
@@ -69,6 +71,7 @@ public class CybersourcePaymentController {
         String body = new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(receiptBody);
 
         System.out.println(body);
+        cybersourcePaymentService.capturePayment(receiptBody);
 
         return ResponseEntity.ok("<!DOCTYPE html>\n" +
                 "<html lang=\"en\">\n" +
@@ -86,24 +89,5 @@ public class CybersourcePaymentController {
                 "</html>\n");
     }
 
-    @GetMapping("/ola")
-    public ResponseEntity<?> getMethod() {
-        return ResponseEntity.ok("waalaaa");
-    }
 
-    @PostMapping("/sign")
-    public ResponseEntity<?> sign(@RequestBody Map<String, Object> params) throws UnsupportedEncodingException, NoSuchAlgorithmException, InvalidKeyException {
-        Object amountObj = params.get("amount");
-        double amt;
-        if (amountObj instanceof String) {
-            amt = Double.parseDouble((String) params.get("amount"));
-        } else if (amountObj instanceof Number) {
-            amt = (double) amountObj;
-        } else {
-            throw new RuntimeException("Invalid amaout");
-        }
-
-        List<KeyValueResponse> keyValueResponses = CyberSourceSecurity.getAllKeyValueForPayment(amt);
-        return ResponseEntity.ok(keyValueResponses);
-    }
 }
